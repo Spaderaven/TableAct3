@@ -3,6 +3,7 @@ let averageState = 0;
 let assignmentAmount = 5;
 let unsubmited = 30;
 
+// Initializes the grades
 let grades = [
     {
         studentName: "",
@@ -36,14 +37,14 @@ let grades = [
     },
 ]
 
+// Just to see if a Cell is empty
 function isEmptyOrSpaces(str){
     return str === null || str.match(/^ *$/) !== null;
 }
 
-function UpdateGrades(row) {
-    console.log("hello");
-    console.log( "ROOEOEOE", row);
-    console.log("PARENT", row.rowIndex);
+// Gets the row that was updated and checks all the cells
+function UpdateGrades(row) {    
+    row = row.target.parentElement            
     let average = 0;
     let assignmnetIsMissing = false;
     let unFinished = assignmentAmount;
@@ -54,26 +55,22 @@ function UpdateGrades(row) {
     for (let i = 2; i <= assignmentAmount+1; i++) {
 
         data = row.children[i].innerHTML
-
-        console.log("DATA", data);
-
-        if(data == " - " || isEmptyOrSpaces(data) ){
-            console.log("ES RAYA");
+        
+        // If a cell is empy or has no data it updates the obj in the array but does nothing else
+        if(data == " - " || isEmptyOrSpaces(data) ){            
             assignmnetIsMissing = true;
             unFinished--;
             grades[row.rowIndex-1].grades[i-2] = data;
             continue
         }
         
-        data = parseInt(data);
-        console.log("DATA", data);
-        if(Number.isInteger(data) && data <= 100 && data >= 0){
-            console.log("SI ES NUMERO", data);
+        // Checks the number to make sure its bewteen 0 - 100, is not it makes it a '-'
+        data = parseInt(data);        
+        if(Number.isInteger(data) && data <= 100 && data >= 0){            
             row.children[i].style.backgroundColor = 'transparent';
             average = average + data;
         } 
-        else {
-            console.log("Ta cabron");
+        else {            
             row.children[i].innerHTML = " - "
             row.children[i].style.backgroundColor = 'yellow';
             assignmnetIsMissing = true;
@@ -84,14 +81,12 @@ function UpdateGrades(row) {
         grades[row.rowIndex-1].grades[i-2] = data;
 
     }
-
-    console.log(grades);
-
+    
+    // Once all assigmnets are submited it calculates the average
     if(!assignmnetIsMissing) {
         average = average / assignmentAmount;
         average = Math.round(average)
-        grades[row.rowIndex-1].average = average;
-        console.log("CALCULANDO", average, TransfromToLetter(average), TransfromToScale(average));
+        grades[row.rowIndex-1].average = average;        
         row.children[row.children.length-1].innerHTML = average
 
         if(average < 60) {
@@ -114,6 +109,7 @@ function UpdateGrades(row) {
 
 }
 
+// This keeps track of all the unsubmited assigmnets
 function CountUnSubs() {
 
     let unsubs = 0;
@@ -130,7 +126,7 @@ function CountUnSubs() {
     document.getElementById("unSubmited").innerHTML = unsubs;
 }
 
-
+// This toggles between the different views for the averages
 function ChangeAverageState(){
     averageState++;
 
@@ -144,8 +140,7 @@ function ChangeAverageState(){
         for (const row of table.children) {
             
             if(row.children[0].tagName == "TH")
-            {
-                console.log(row.children);
+            {                
                 row.children[assignmentAmount+2].innerHTML = "Average %"
                 continue;
             } 
@@ -161,8 +156,7 @@ function ChangeAverageState(){
         for (const row of table.children) {
             
             if(row.children[0].tagName == "TH")
-            {
-                console.log(row.children);
+            {                
                 row.children[assignmentAmount+2].innerHTML = "Average Letter"
                 continue;
             } 
@@ -174,8 +168,7 @@ function ChangeAverageState(){
         for (const row of table.children) {
             
             if(row.children[0].tagName == "TH")
-            {
-                console.log(row.children);
+            {                
                 row.children[assignmentAmount+2].innerHTML = "Average 4.0"
                 continue;
             } 
@@ -183,13 +176,13 @@ function ChangeAverageState(){
             row.children[assignmentAmount+2].innerHTML = TransfromToScale(grades[row.rowIndex - 1].average);    
         }
     }
-
-    console.log(table);
+    
 
     
 }
 
 
+// As it says this adds a row
 function AddRow() {
 
     grades.push({
@@ -206,8 +199,7 @@ function AddRow() {
     for (let i = 0; i <= assignmentAmount+2; i++) {
         let cell = row.insertCell(i);
         cell.innerHTML = "-";
-        cell.contentEditable = "true";
-        console.log(cell);
+        cell.contentEditable = "true";        
     }
     
     row.children[assignmentAmount+2].innerHTML = "0"
@@ -221,6 +213,7 @@ function AddRow() {
 }
 
 
+// This adds a column
 function AddColumn() {
 
     assignmentAmount++;
@@ -242,8 +235,7 @@ function AddColumn() {
         let cell = row.insertCell(row.children.length-1);
 
         cell.innerHTML = " - ";
-        cell.contentEditable = "true";
-        console.log(cell);
+        cell.contentEditable = "true";        
     }
 
     grades.forEach(student => {
@@ -255,6 +247,7 @@ function AddColumn() {
 }
 
 
+// These functions make the changes for the averages to the desired view
 function TransfromToLetter(num) {
     switch (true) {
         case (num >= 93 && num <= 100):
@@ -313,6 +306,3 @@ function TransfromToScale(num) {
             return '0.0'
     }
 }
-
-AddRow();
-AddColumn();
