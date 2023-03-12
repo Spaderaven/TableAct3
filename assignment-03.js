@@ -1,3 +1,16 @@
+/**
+ * Luis Daniel Santiago Gutierrez 
+ * 22132503
+ * 
+ * Browsers Tested:
+ *      Google Chrome Versión 110.0.5481.178
+ *      FireFox Versión 110.0.1
+ * 
+ * Operating System: 
+ *      Windows
+ */
+
+
 let averages = [];
 let averageState = 0;
 let assignmentAmount = 5;
