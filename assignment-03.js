@@ -195,7 +195,7 @@ function ChangeAverageState(){
 }
 
 
-// As it says this adds a row
+// As it says this adds a row and student to our array of grades
 function AddRow() {
 
     let newStudent = {
