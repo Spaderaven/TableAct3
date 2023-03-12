@@ -6,6 +6,7 @@ body{
     height: 100vh;
     overflow-x: hidden;
     overflow-y: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 table th {
@@ -49,4 +50,8 @@ td{
     color: white;
     background-color: gray;
     border-radius: 40%;
+}
+
+.add-buttons{
+    display: inline;
 }
