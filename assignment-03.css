@@ -1,0 +1,52 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+table th {
+    background-color: darkgray;
+    padding: 10px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td:nth-child(1), td:nth-child(2){
+    text-align: left;
+    background-color: transparent;
+}
+
+td:last-child{
+    text-align: right;
+    background-color: transparent;
+}
+
+td{
+    text-align: center;
+    background-color: yellow;
+}
+
+#unSubmited{
+    display: inline;
+}
+
+.Unsub-line {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px;
+    color: white;
+    background-color: gray;
+    border-radius: 40%;
+}
