@@ -198,12 +198,18 @@ function ChangeAverageState(){
 // As it says this adds a row
 function AddRow() {
 
-    grades.push({
+    let newStudent = {
         studentName: "-",
         studentID: "-",
-        grades: [' - ', ' - ', ' - ', ' - ', ' - '],
+        grades: [],
         average: 0
-    })
+    }
+
+    for (let index = 0; index < assignmentAmount; index++) {
+        newStudent.grades.push(" - ")
+    }
+
+    grades.push(newStudent)
 
     var table = document.getElementById("gradeTable");
 
